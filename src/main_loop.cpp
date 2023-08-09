@@ -5,24 +5,14 @@
 #include <unistd.h>
 #include <termios.h>
 #include <boost/process.hpp>
-#include <readline/readline.h>
 #include <readline/history.h>
 
 #include "common.h"
+#include "readline.h"
 
 using namespace std;
 namespace bp = boost::process;
 namespace bf = boost::filesystem;
-
-static string prompt = DEFAULT_PROMPT;
-
-string lsh_readline()
-{
-    string line_read = readline(prompt.c_str());
-    if (!line_read.empty())
-        add_history(line_read.c_str());
-    return line_read;
-}
 
 // Extrack tokens from input string.
 vector<string> parse_cmd(const string &line)
