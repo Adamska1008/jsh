@@ -13,10 +13,16 @@ using namespace std;
 string BuiltIn::help_msg()
 {
     stringstream sstream;
-    sstream << this->name << "\t";
-    for (const auto &arg : this->args)
-        sstream << arg << " ";
-    sstream << '\t';
+    sstream << left << setw(10) << this->name << setw(20);
+    if (!this->args.empty())
+    {
+        string args;
+        for (const auto &arg : this->args)
+            args += arg + " ";
+        sstream << args.substr(0, args.size() - 1);
+    }
+    else
+        sstream << "\0";
     sstream << this->intro;
     return sstream.str();
 }
