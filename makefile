@@ -3,7 +3,7 @@ INC_DIR=include
 SRC_DIR=src
 TAR_DIR=target
 CFLAGS=-Wall -g -I./$(INC_DIR) -std=c++17
-LIB=-lboost_filesystem -lboost_system
+LIB=-lboost_filesystem -lboost_system -lreadline
 EXE=jsh
 
 SRC_FILES=$(patsubst $(SRC_DIR)/%.cpp, %.cpp, $(wildcard $(SRC_DIR)/*.cpp))
