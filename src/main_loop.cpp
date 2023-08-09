@@ -50,7 +50,14 @@ int jsh_loop()
     while (true)
     {
         line = lsh_readline();
-        auto cmd = parse_cmd(line);
+        vector<string> cmd = parse_cmd(line);
+        while (!cmd.empty() && cmd.back() == "\\")
+        {
+            cmd.pop_back();
+            line = lsh_readline();
+            vector<string> next = parse_cmd(line);
+            cmd.insert(cmd.end(), next.begin(), next.end());
+        }
         int status = jsh_execute(cmd);
         if (status == JSH_EXIT)
             break;

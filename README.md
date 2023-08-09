@@ -8,6 +8,7 @@ Extra features compared to lsh:
 + use arrow keys to manipulate cursor and switch to history command
 + more builtins: `cd`、`help`、`exit`、`history`
 + support autocomplete
++ multiple line input
 
 ## Dependence
 + boost
