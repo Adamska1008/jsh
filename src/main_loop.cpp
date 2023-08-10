@@ -2,28 +2,18 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <unistd.h>
-#include <termios.h>
 #include <boost/process.hpp>
 #include <readline/history.h>
 
 #include "common.h"
 #include "readline.h"
+#include "parser.h"
 
 using namespace std;
 namespace bp = boost::process;
 namespace bf = boost::filesystem;
 
-// Extrack tokens from input string.
-vector<string> parse_cmd(const string &line)
-{
-    vector<string> toks;
-    stringstream sstream(line);
-    string cur_tok;
-    while (sstream >> cur_tok)
-        toks.push_back(cur_tok);
-    return toks;
-}
+
 
 // Launch a sub process.
 int jsh_launch(const string &path, const vector<string> &args)
@@ -34,6 +24,10 @@ int jsh_launch(const string &path, const vector<string> &args)
     return 0;
 }
 
+// Execute commands, support only single command currently
+// Commands can be: 
+// + Builtins
+// + Programs
 int jsh_execute(const vector<string> &cmd)
 {
     if (cmd.empty())
@@ -44,18 +38,20 @@ int jsh_execute(const vector<string> &cmd)
         return jsh_launch(cmd[0], vector<string>(cmd.begin() + 1, cmd.end()));
 }
 
+// Basic loop in jsh
 int jsh_loop()
 {
     string line;
     while (true)
     {
-        line = lsh_readline();
+        line = jsh_readline();
         vector<string> cmd = parse_cmd(line);
         while (!cmd.empty() && cmd.back() == "\\")
         {
             cmd.pop_back();
-            line = lsh_readline();
+            line = jsh_readline();
             vector<string> next = parse_cmd(line);
+            cmd.reserve(cmd.size() + next.size());
             cmd.insert(cmd.end(), next.begin(), next.end());
         }
         int status = jsh_execute(cmd);

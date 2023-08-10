@@ -69,7 +69,8 @@ static const unordered_map<string, BuiltIn> built_in = {
     {"cd", BuiltIn{"cd", "change directory", {"[dir]"}, jsh_cd}},
     {"exit", BuiltIn{"exit", "exit jsh", {}, jsh_exit}},
     {"help", BuiltIn{"help", "show help information", {}, jsh_help}},
-    {"history", BuiltIn{"history", "list history commands", {"[number]"}, jsh_history}}};
+    {"history", BuiltIn{"history", "list history commands", {"[number]"}, jsh_history}},
+};
 
 int jsh_help(vector<string> args)
 {
@@ -78,6 +79,8 @@ int jsh_help(vector<string> args)
     return 0;
 }
 
+// If args[0] is a builtin, execute it and return {status, true}
+// else, do nothing and return {0, false}
 tuple<int, bool> exec_if_builtin(vector<string> args)
 {
     for (auto [k, b] : built_in)

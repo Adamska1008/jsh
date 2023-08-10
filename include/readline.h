@@ -5,4 +5,4 @@
 
 static std::string prompt = DEFAULT_PROMPT;
 
-std::string lsh_readline();
+std::string jsh_readline();

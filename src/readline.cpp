@@ -1,15 +1,15 @@
-#include "readline.h"
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <boost/process.hpp>
+
+#include "readline.h"
+#include "utility.h"
 
 using namespace std;
-namespace bp = boost::process;
 
 char **character_name_completion(const char *, int, int);
 char *character_name_generator(const char *, int);
 
-string lsh_readline()
+string jsh_readline()
 {
     rl_attempted_completion_function = character_name_completion;
     string line_read = readline(prompt.c_str());
@@ -22,17 +22,6 @@ char **character_name_completion(const char *text, int start, int end)
 {
     rl_attempted_completion_over = 1;
     return rl_completion_matches(text, character_name_generator);
-}
-
-vector<string> list_cur_dir()
-{
-    bp::ipstream is;
-    bp::child c("ls", bp::std_out > is);
-    vector<string> out;
-    string tmp;
-    while (is >> tmp)
-        out.push_back(tmp);
-    return out;
 }
 
 char *character_name_generator(const char *text, int state)

@@ -13,9 +13,13 @@ Extra features compared to lsh:
 ## Dependence
 + boost
 + libreadline-dev
++ [wildcards](https://github.com/zemasoft/wildcards)(single header)
 
-## Build
-Simply run `make`. Target files are in `target` directory.
+## Building
 
+```
+git clone https://github.com/Adamska1008/jsh
+cd jsh & make
+```
 ## Run
 Run `make run` or `./target/jsh`
