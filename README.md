@@ -9,11 +9,11 @@ Extra features compared to lsh:
 + more builtins: `cd`、`help`、`exit`、`history`
 + support autocomplete
 + multiple line input
++ wildcards
 
 ## Dependence
 + boost
 + libreadline-dev
-+ [wildcards](https://github.com/zemasoft/wildcards)(single header)
 
 ## Building
 
